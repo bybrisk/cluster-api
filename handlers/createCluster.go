@@ -17,7 +17,7 @@ import (
 
 func (p *Cluster) CreateCluster (w http.ResponseWriter, r *http.Request){
 	p.l.Println("Handle POST request -> cluster-api Module")
-	cluster := &data.CreateClustreRequest{}
+	cluster := &data.CreateClusterRequest{}
 
 	err:=cluster.FromJSONToCreateClusterStruct(r.Body)
 	if err!=nil {
