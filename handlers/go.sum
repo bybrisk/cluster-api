@@ -1,10 +1,10 @@
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/aws/aws-sdk-go v1.34.28/go.mod h1:H7NKnBqNVzoTJpGfLrQkkD+ytBA93eiDYi/+8rV9s48=
-github.com/bybrisk/cluster-api v0.0.0-20210131181908-b23a87200dd8 h1:LbgnM23IYF02E1urB+yl3B5sPd2xP6APqQWcnDbiiEk=
-github.com/bybrisk/cluster-api/data v0.0.0-20210131181908-b23a87200dd8 h1:bH/9G67TzYafq7Y+SeBoIup2A1NvXcRMAgi96UK/+jI=
-github.com/bybrisk/cluster-api/data v0.0.0-20210131181908-b23a87200dd8/go.mod h1:zJ2IB/pwtntxH2u0icQYZUFBXKtrj8945I0YOGm6D5A=
-github.com/bybrisk/cluster-api/data v0.0.0-20210131182034-f540d4b45e63 h1:HxEfr6JgXQYqtLQ2qs6iO/x7ghyX8E4ZisSwCXtFFyw=
-github.com/bybrisk/cluster-api/data v0.0.0-20210131182034-f540d4b45e63/go.mod h1:zJ2IB/pwtntxH2u0icQYZUFBXKtrj8945I0YOGm6D5A=
+github.com/bybrisk/cluster-api v0.0.0-20210131182706-b12b03da9253 h1:lYabkOtLXZFWinDrR+NUK3i1LdryqwpIKByL4fCf4yM=
+github.com/bybrisk/cluster-api/data v0.0.0-20210131182706-b12b03da9253 h1:J1bQEeig96YY80duYmfB6De9F+ukWo/vF/P8UllVzoY=
+github.com/bybrisk/cluster-api/data v0.0.0-20210131182706-b12b03da9253/go.mod h1:zJ2IB/pwtntxH2u0icQYZUFBXKtrj8945I0YOGm6D5A=
+github.com/bybrisk/cluster-api/data v0.0.0-20210201064143-89b974ddb317 h1:9dGo3B9NPEa7n6PYmPBHg4JQbY6S98MfNuGW2ymxBS4=
+github.com/bybrisk/cluster-api/data v0.0.0-20210201064143-89b974ddb317/go.mod h1:zJ2IB/pwtntxH2u0icQYZUFBXKtrj8945I0YOGm6D5A=
 github.com/bybrisk/structs v0.0.0-20201109044720-899a1e012b8c/go.mod h1:+ozPcEcgRTvbDXzFyBlUTgv1G2niBpEsIzF5tySMIck=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
@@ -40,6 +40,7 @@ github.com/gobuffalo/packr/v2 v2.2.0/go.mod h1:CaAwI0GPIAv+5wKLtv8Afwl+Cm78K/I/V
 github.com/gobuffalo/syncx v0.0.0-20190224160051-33c29581e754/go.mod h1:HhnNqWY95UYwwW3uSASeV7vtgYkT2t16hJgV3AEPUpw=
 github.com/golang/snappy v0.0.1/go.mod h1:/XxbfmMg8lxefKM7IXC3fBNl/7bRcc72aCRzEWrmP2Q=
 github.com/google/go-cmp v0.5.2/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/gNBxE=
+github.com/gorilla/mux v1.8.0/go.mod h1:DVbg23sWSpFRCP0SfiEN6jmj59UnW/n46BH5rLB71So=
 github.com/inconshreveable/mousetrap v1.0.0/go.mod h1:PxqpIevigyE2G7u3NXJIT2ANytuPF1OarO4DADm73n8=
 github.com/jmespath/go-jmespath v0.4.0/go.mod h1:T8mJZnbsbmF+m6zOOFylbeCJqk5+pHWvzYPziyZiYoo=
 github.com/jmespath/go-jmespath/internal/testify v1.5.1/go.mod h1:L3OGu8Wl2/fWfCI6z80xFu9LTZmf1ZRjMHUOPmWr69U=
