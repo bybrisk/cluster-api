@@ -70,6 +70,10 @@ type PendingDeliveryBulk struct {
 				//
 				CustomerName    string  `json:"CustomerName"`
 
+				//ClusterID of the cluster this delivery falls into
+				//
+				ClusterID       string  `json:"clusterID"`
+
 				//Longitude of delivery location
 				//
 				Longitude       float64 `json:"longitude"`
