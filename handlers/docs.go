@@ -58,3 +58,19 @@ type createClusterParamsWrapper struct {
 	// required: true
 	Body data.CreateClusterRequest
 }
+
+// Response structure for all cluster details
+// swagger:response getAllClusterDetails
+type fetchAllResponseWrapper struct {
+	// Response structre of cluster by ID
+	// in: body
+	Body data.ClusterArrayByIDResponse
+}
+
+// Response structure for single cluster details
+// swagger:response getSingleClusterDetails
+type fetchSingleResponseWrapper struct {
+	// Response structre of cluster by ID
+	// in: body
+	Body data.SingleClusterResponseBulk
+}

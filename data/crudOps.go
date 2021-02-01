@@ -14,8 +14,6 @@ import ( //"log"
 func CreateClusterByID (d *CreateClusterRequest) *CreateClusterResponse{
 
 	var res CreateClusterResponse
-	//lat-long of the business
-	//geoCodes := GetGeocodes(d.BybID)
 	
 	//all the pending deliveries from es queue where cluster is null
 	queueArr := GetPendingDeliveries(d.BybID)
@@ -50,7 +48,7 @@ func CreateClusterByID (d *CreateClusterRequest) *CreateClusterResponse{
 }
 
 func ClusteringAlgoFunc (arrLatLong []LatLongAndID, k int,agentIDArray []AgentIDArrayStruct,accountID string) ClusterIDArray {
-	//geoCodeArr []LatLongStruct, k int64
+	
 	var geoCodeArr []LatLongAndID
 	var clusterIDArr ClusterIDArray
 	var d Observations
@@ -58,7 +56,6 @@ func ClusteringAlgoFunc (arrLatLong []LatLongAndID, k int,agentIDArray []AgentID
 
 	fmt.Printf("%d data points\n", len(d))
 
-	// Partition the data points into 7 clusters
 	m := Kmeans{
 		deltaThreshold:     0.01,
 		iterationThreshold: 96,
@@ -83,6 +80,25 @@ func ClusteringAlgoFunc (arrLatLong []LatLongAndID, k int,agentIDArray []AgentID
 	}
 	SaveClusterID(geoCodeArr)
 	SaveClusterIDToMongo(clusterIDArr,accountID)
-	//fmt.Println(clusterIDArr)
+
 	return clusterIDArr
+}
+
+func GetAllClusterByID(docID string) *ClusterArrayByIDResponse{
+	var response ClusterArrayByIDResponse
+	clusterArray := AllClusterIDsByBusinessID(docID)
+
+	clusterDetailArray := AllClusterDetailByID(clusterArray.CurrentClusterArr.ClusterID)
+
+	response = ClusterArrayByIDResponse{
+		ClusterIDArray: clusterArray.CurrentClusterArr.ClusterID,
+		AssignedDeliveryArray: clusterDetailArray,
+	}
+	
+	return &response
+}
+
+func GetSingleClusterByID(docID string) *SingleClusterResponseBulk{
+	res := FetchDeliveryByClusterID(docID)
+	return &res 
 }

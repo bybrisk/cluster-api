@@ -124,3 +124,83 @@ func SaveClusterID(arr []LatLongAndID) {
 
 	}
 }
+
+func AllClusterDetailByID(arr []string) []PendingDeliveryBulk{
+	var clusterMetaArray []PendingDeliveryBulk
+	for _,c := range arr{
+		var singleCluster PendingDeliveryBulk
+		
+		postBody:=`{
+			"query": {
+			  "bool": {
+				"filter": [
+				  {"term": {"clusterID.keyword": "`+c+`"}}
+				]
+			  }
+			}
+	}`
+	
+		 responseBody := bytes.NewBufferString(postBody)
+		  //Leverage Go's HTTP Post function to make request
+		 resp, err := http.Post(urlAuthenticate+"/_all/_search?size=5000", "application/json", responseBody)
+	  
+		 //Handle Error
+		 if err != nil {
+			log.Fatalf("An Error Occured %v", err)
+		 }
+		 defer resp.Body.Close()
+	
+		 body, err := ioutil.ReadAll(resp.Body)
+		 if err != nil {
+			log.Error("ReadAll ERROR : ")
+			log.Error(err)
+		 }
+		 
+		 err = json.Unmarshal(body, &singleCluster)
+		 if err != nil {
+			log.Error("json.Unmarshal ERROR : ")
+			log.Error(err)
+			} 
+
+		clusterMetaArray = append(clusterMetaArray,singleCluster)
+	}
+	return clusterMetaArray
+}
+
+func FetchDeliveryByClusterID(docID string) SingleClusterResponseBulk{
+	var singleCluster SingleClusterResponseBulk
+		
+		postBody:=`{
+			"query": {
+			  "bool": {
+				"filter": [
+				  {"term": {"clusterID.keyword": "`+docID+`"}}
+				]
+			  }
+			}
+	}`
+	
+		 responseBody := bytes.NewBufferString(postBody)
+		  //Leverage Go's HTTP Post function to make request
+		 resp, err := http.Post(urlAuthenticate+"/_all/_search?size=5000", "application/json", responseBody)
+	  
+		 //Handle Error
+		 if err != nil {
+			log.Fatalf("An Error Occured %v", err)
+		 }
+		 defer resp.Body.Close()
+	
+		 body, err := ioutil.ReadAll(resp.Body)
+		 if err != nil {
+			log.Error("ReadAll ERROR : ")
+			log.Error(err)
+		 }
+		 
+		 err = json.Unmarshal(body, &singleCluster)
+		 if err != nil {
+			log.Error("json.Unmarshal ERROR : ")
+			log.Error(err)
+			}
+
+		return	singleCluster
+}

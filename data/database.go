@@ -113,3 +113,17 @@ func SaveClusterIDToMongo(clusterIDArr ClusterIDArray, docID string) int64 {
 	
 	return res.ModifiedCount
 }
+
+func AllClusterIDsByBusinessID(docID string) ClusterArrayObject{
+	collectionName := shashankMongo.DatabaseName.Collection("cluster")
+	filter := bson.M{"bybid": docID}
+
+	var document ClusterArrayObject
+
+	err:= collectionName.FindOne(shashankMongo.CtxForDB, filter).Decode(&document)
+	if err != nil {
+		log.Error("GetGeocodes ERROR:")
+		log.Error(err)
+	}
+	return document
+}

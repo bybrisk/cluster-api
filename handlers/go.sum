@@ -3,6 +3,8 @@ github.com/aws/aws-sdk-go v1.34.28/go.mod h1:H7NKnBqNVzoTJpGfLrQkkD+ytBA93eiDYi/
 github.com/bybrisk/cluster-api v0.0.0-20210131181908-b23a87200dd8 h1:LbgnM23IYF02E1urB+yl3B5sPd2xP6APqQWcnDbiiEk=
 github.com/bybrisk/cluster-api/data v0.0.0-20210131181908-b23a87200dd8 h1:bH/9G67TzYafq7Y+SeBoIup2A1NvXcRMAgi96UK/+jI=
 github.com/bybrisk/cluster-api/data v0.0.0-20210131181908-b23a87200dd8/go.mod h1:zJ2IB/pwtntxH2u0icQYZUFBXKtrj8945I0YOGm6D5A=
+github.com/bybrisk/cluster-api/data v0.0.0-20210131182034-f540d4b45e63 h1:HxEfr6JgXQYqtLQ2qs6iO/x7ghyX8E4ZisSwCXtFFyw=
+github.com/bybrisk/cluster-api/data v0.0.0-20210131182034-f540d4b45e63/go.mod h1:zJ2IB/pwtntxH2u0icQYZUFBXKtrj8945I0YOGm6D5A=
 github.com/bybrisk/structs v0.0.0-20201109044720-899a1e012b8c/go.mod h1:+ozPcEcgRTvbDXzFyBlUTgv1G2niBpEsIzF5tySMIck=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
