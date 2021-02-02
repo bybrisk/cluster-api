@@ -74,6 +74,14 @@ type PendingDeliveryBulk struct {
 				//
 				ClusterID       string  `json:"clusterID"`
 
+				//Delivery Observed Distance (in meters)
+				//
+				DistanceObserved  float64  `json:"distanceObserved"`
+
+				//AgentID of the agent associated with the delivery
+				//
+				DeliveryAgentID string  `json:"deliveryAgentID"`
+
 				//Longitude of delivery location
 				//
 				Longitude       float64 `json:"longitude"`
@@ -140,6 +148,10 @@ type SingleClusterResponseBulk struct {
 				//Status of Delivery
 				//
 				DeliveryStatus  string  `json:"deliveryStatus"`
+
+				//Delivery Observed Distance (in meters)
+				//
+				DistanceObserved  string  `json:"distanceObserved"`
 
 				//Address of delivery
 				//

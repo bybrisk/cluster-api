@@ -60,7 +60,7 @@ import (
 	fmt.Println(res)
 }*/
 
-func TestSingleClusterByID(t *testing.T) {
+/*func TestSingleClusterByID(t *testing.T) {
 	res:=data.GetSingleClusterByID("1nrr1kxlRUf42iChV7WMrqZs9L9")
 	fmt.Println(res)
-}
+}*/
