@@ -9,16 +9,16 @@ import (
 	"github.com/bybrisk/cluster-api/data"
 )
 
-/*func TestCreateCluster(t *testing.T) {
+func TestCreateCluster(t *testing.T) {
 
 	payload:= &data.CreateClusterRequest {
-		BybID : "6016ee473ae10bd996052f15",
-		NumberOfCluster : 2,
+		BybID : "601a4c31565e622c7f6816f5",
+		NumberOfCluster : 25,
 	}
 
 	res:=data.CreateClusterByID(payload)
 	fmt.Println(res)
-}*/
+}
 
 /*func TestGetPendingDeliveries(t *testing.T) {
 	res := data.GetPendingDeliveries("600d95c5d72ee5dd5896dd75")

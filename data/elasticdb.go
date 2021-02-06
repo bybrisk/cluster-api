@@ -2,7 +2,7 @@ package data
 
 import (
 	"encoding/json"
-	//"fmt"
+	"fmt"
 	//"time"
 	log "github.com/sirupsen/logrus"
 	"bytes"
@@ -97,8 +97,9 @@ func SaveTimeNDistanceES(arr []DeliveryHitsArr) {
 
 func SaveClusterID(arr []LatLongAndID) {
 	
-	for _, d := range arr {
+	for i, d := range arr {
 	
+	fmt.Printf("\r %.0f %c", float64(i*100/len(arr)),'%')
 	//Encode the data
 	postBody:=`{
 		"script" : {

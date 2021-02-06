@@ -39,9 +39,16 @@ func CreateClusterByID (d *CreateClusterRequest) *CreateClusterResponse{
 	// Feed the array and the no. of clusters to the algo
 	clusterArr := ClusteringAlgoFunc(arr,NOC,agentIDArray,d.BybID)
 
-	res=CreateClusterResponse{
-		ClusterIDArray:clusterArr ,
-		Message: "Clusters Created",
+	if len(clusterArr.ClusterID)==0{
+		res=CreateClusterResponse{
+			ClusterIDArray:clusterArr ,
+			Message: "No Pending Deliveries",
+		}
+	} else{
+		res=CreateClusterResponse{
+			ClusterIDArray:clusterArr ,
+			Message: "Clusters Created",
+		}
 	}
 
 	return &res
@@ -78,7 +85,7 @@ func ClusteringAlgoFunc (arrLatLong []LatLongAndID, k int,agentIDArray []AgentID
 			geoCodeArr = append(geoCodeArr,geoCodeArrSingle)
 		}
 	}
-	SaveClusterID(geoCodeArr)
+ 	SaveClusterID(geoCodeArr)
 	SaveClusterIDToMongo(clusterIDArr,accountID)
 
 	return clusterIDArr
