@@ -3,6 +3,7 @@ package data
 import ( //"log"
 		"fmt"
 		"github.com/segmentio/ksuid"
+		"sync"
 		//"io/ioutil"
 		//"net/http"
 		//"net/url"
@@ -10,6 +11,8 @@ import ( //"log"
 		//"github.com/muesli/clusters"
 		//"github.com/muesli/kmeans"
 	)
+
+var wg sync.WaitGroup
 
 func CreateClusterByID (d *CreateClusterRequest) *CreateClusterResponse{
 
@@ -85,7 +88,9 @@ func ClusteringAlgoFunc (arrLatLong []LatLongAndID, k int,agentIDArray []AgentID
 			geoCodeArr = append(geoCodeArr,geoCodeArrSingle)
 		}
 	}
- 	SaveClusterID(geoCodeArr)
+	wg.Add(1)
+	go SaveClusterID(geoCodeArr)
+	wg.Wait()
 	SaveClusterIDToMongo(clusterIDArr,accountID)
 
 	return clusterIDArr

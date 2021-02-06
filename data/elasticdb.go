@@ -124,6 +124,7 @@ func SaveClusterID(arr []LatLongAndID) {
 	 defer resp.Body.Close()
 
 	}
+	wg.Done()
 }
 
 func AllClusterDetailByID(arr []string) []PendingDeliveryBulk{
