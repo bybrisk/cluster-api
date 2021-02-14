@@ -23,38 +23,77 @@ func CreateClusterByID (d *CreateClusterRequest) *CreateClusterResponse{
 
 	var arr []LatLongAndID
 
+	//Get k agentIDs in an array else return error
+	agentIDArr,err := GetAgentIDArray(d.NumberOfCluster,d.BybID)
+	if err!=nil {
+		return &res	
+	}
+
 	for _, hit := range queueArr.Hits.Hits {
 		singleArr := LatLongAndID{
 			BybID : hit.ID,
 			Latitude: hit.Source.Latitude,
 			Longitude: hit.Source.Longitude,
+			ItemWeight: hit.Source.ItemWeight,
 		}
 		arr = append(arr, singleArr)
 	 }
-	NOC := int(d.NumberOfCluster)
 
-	//Get k agentIDs in an array else return error
-	agentIDArray,err := GetAgentIDArray(d.NumberOfCluster,d.BybID)
-	if err!=nil {
-		return &res	
-	}
 	
-	// Feed the array and the no. of clusters to the algo
-	clusterArr := ClusteringAlgoFunc(arr,NOC,agentIDArray,d.BybID)
+	 clusterIdArr,deliveryIdArr,omega,latlng := ModifiedCluster(arr,int(d.NumberOfCluster))
 
-	if len(clusterArr.ClusterID)==0{
+	 prepareAndSaveClusterID(clusterIdArr,deliveryIdArr,omega,agentIDArr,latlng)
+
+
+	 we := make([]float64,len(omega))
+
+	 for i,v:=range omega{
+		 for _,u:=range v{
+			we[i] = we[i] + MKM_Weights[u]
+		 }
+	 }
+
+	 fmt.Printf("Weight Array %v",we)
+
+	 var clusterIDArrObj ClusterIDArray
+	 clusterIDArrObj.ClusterID = clusterIdArr
+
+	 SaveClusterIDToMongo(clusterIDArrObj,d.BybID)
+	
+
+	if len(deliveryIdArr)==0{
+		clusterIDArrObj.ClusterID = nil
 		res=CreateClusterResponse{
-			ClusterIDArray:clusterArr ,
+			ClusterIDArray:clusterIDArrObj ,
 			Message: "No Pending Deliveries",
 		}
 	} else{
 		res=CreateClusterResponse{
-			ClusterIDArray:clusterArr ,
+			ClusterIDArray:clusterIDArrObj ,
 			Message: "Clusters Created",
 		}
 	}
 
+
 	return &res
+}
+
+func prepareAndSaveClusterID (clusterIdArr []string,deliveryIdArr []string,omega []MKM_intArr,agentIDArr []AgentIDArrayStruct, latlng []MKM_floatArr) {
+    var geoCodeArr []LatLongAndID
+
+	for i,v:=range omega{
+		for _,u:=range v{
+			geoCodeArrSingle := LatLongAndID{
+				AgentID : agentIDArr[i].BybID,
+				BybID:deliveryIdArr[u],
+				Latitude:latlng[u][0],
+				Longitude:latlng[u][1],
+				ClusterID:clusterIdArr[i],
+			}
+			geoCodeArr = append(geoCodeArr,geoCodeArrSingle)
+		}
+	}
+	SaveClusterID(geoCodeArr)
 }
 
 func ClusteringAlgoFunc (arrLatLong []LatLongAndID, k int,agentIDArray []AgentIDArrayStruct,accountID string) ClusterIDArray {
@@ -88,11 +127,10 @@ func ClusteringAlgoFunc (arrLatLong []LatLongAndID, k int,agentIDArray []AgentID
 			geoCodeArr = append(geoCodeArr,geoCodeArrSingle)
 		}
 	}
-	wg.Add(1)
-	go SaveClusterID(geoCodeArr)
-	wg.Wait()
-	SaveClusterIDToMongo(clusterIDArr,accountID)
 
+	//run this function in background
+	SaveClusterID(geoCodeArr)
+	SaveClusterIDToMongo(clusterIDArr,accountID)
 	return clusterIDArr
 }
 
@@ -114,3 +152,5 @@ func GetSingleClusterByID(docID string) *SingleClusterResponseBulk{
 	res := FetchDeliveryByClusterID(docID)
 	return &res 
 }
+
+

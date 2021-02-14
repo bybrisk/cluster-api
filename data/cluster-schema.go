@@ -189,6 +189,7 @@ type LatLongAndID struct {
 	BybID string
 	Latitude float64 `json:"latitude"`
 	Longitude float64 `json:"longitude"`
+	ItemWeight float64 `json:"itemWeight"`
 	ClusterID string
 	AgentID string
 }
@@ -227,3 +228,95 @@ func (d *CreateClusterRequest) ValidateCreateClusters() error {
 	validate := validator.New()
 	return validate.Struct(d)
 }
+
+/*GET _search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+GET /_all/_search
+{
+  "query": {
+			"ids": {
+				"values": "o4axZ3cBMbaQ18HIDI95"
+			}
+		}
+	}
+	
+#DELETE /01-29-2021/_doc/BYYSTncBMbaQ18HIMI2q
+
+POST /_all/_search?size=500
+{
+		"query": {
+		  "bool": {
+			"filter": [
+			  {"term": {"deliveryAgentID": "601a9e411b66a92ffc0f1cf2"}}
+			]
+		  }
+		}
+	  }
+	  
+POST /_all/_search?size=500
+{
+		"query": {
+		  "bool": {
+			"filter": [
+			  {"term": {"BybID": "601a4c31565e622c7f6816f5"}}
+			]
+		  }
+		}
+	  }	  
+	  
+POST /_all/_update_by_query?conflicts=proceed
+ {
+		"script" : {
+			"source": "ctx._source.clusterID='q123eiropncjknjk';ctx._source.deliveryAgentID='q1evds23eiropncjknjk';",
+			"lang": "painless"  
+		  },
+		  "query": {
+			  "ids" : {
+		    	"values" : "GIZ0T3cBMbaQ18HIq41k"
+			    }
+		  }
+	}
+
+POST /_all/_update_by_query?conflicts=proceed
+ {
+		"script" : {
+			"source": "ctx._source.clusterID='';ctx._source.deliveryAgentID='';",
+			"lang": "painless"  
+		  },
+		  "query": {
+		  "bool": {
+			"filter": [
+			  {"term": {"BybID": "6015789575219a98b573e497"}}
+			]
+		  }
+		}
+	}	
+	
+POST /_all/_search?size=500
+{
+		"query": {
+		  "bool": {
+			"filter": [
+			  {"term": {"clusterID.keyword": "1oCVufAyKeaHHIxWKyfoXOlQags"}}
+			]
+		  }
+		}
+}	
+
+POST /_all/_update_by_query?conflicts=proceed
+{
+		"script" : {
+			"source": "ctx._source.distanceObserved=1234;",
+			"lang": "painless"  
+		  },
+		  "query": {
+			  "ids" : {
+			"values" : "GIZ0T3cBMbaQ18HIq41k"
+			}
+		  }
+	  }*/

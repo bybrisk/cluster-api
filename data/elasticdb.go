@@ -34,8 +34,7 @@ func GetPendingDeliveries(docID string) PendingDeliveryBulk {
 				  "bool": {
 					"filter": [
 							 { "term" : {"BybID" : "`+docID+`" }},
-					   {"term" : {"deliveryStatus.keyword" : "Pending" }},
-					   {"term" : {"clusterID.keyword" : "" }}
+					   {"term" : {"deliveryStatus.keyword" : "Pending" }}
 					]
 				  }
 				}
@@ -95,36 +94,34 @@ func SaveTimeNDistanceES(arr []DeliveryHitsArr) {
 	}
 }
 
-func SaveClusterID(arr []LatLongAndID) {
+func SaveClusterID(arr []LatLongAndID){
 	
 	for i, d := range arr {
+		fmt.Printf("\r %.0f %c", float64(i*100/len(arr)),'%')
+		//Encode the data
+		postBody:=`{
+			"script" : {
+				"source": "ctx._source.clusterID='`+d.ClusterID+`';ctx._source.deliveryAgentID='`+d.AgentID+`';",
+				"lang": "painless"  
+			  },
+			  "query": {
+				  "ids" : {
+					"values" : "`+d.BybID+`"
+					}
+			  }
+		}`
 	
-	fmt.Printf("\r %.0f %c", float64(i*100/len(arr)),'%')
-	//Encode the data
-	postBody:=`{
-		"script" : {
-			"source": "ctx._source.clusterID='`+d.ClusterID+`';ctx._source.deliveryAgentID='`+d.AgentID+`';",
-			"lang": "painless"  
-		  },
-		  "query": {
-			  "ids" : {
-		    	"values" : "`+d.BybID+`"
-			    }
-		  }
-	}`
-
-	 responseBody := bytes.NewBufferString(postBody)
-  	//Leverage Go's HTTP Post function to make request
-	 resp, err := http.Post(urlAuthenticate+"/_all/_update_by_query?conflicts=proceed", "application/json", responseBody)
-  
-	 //Handle Error
-	 if err != nil {
-		log.Fatalf("An Error Occured %v", err)
-	 }
-	 defer resp.Body.Close()
-
-	}
-	wg.Done()
+		 responseBody := bytes.NewBufferString(postBody)
+		  //Leverage Go's HTTP Post function to make request
+		 resp, err := http.Post(urlAuthenticate+"/_all/_update_by_query?conflicts=proceed", "application/json", responseBody)
+	  
+		 //Handle Error
+		 if err != nil {
+			log.Fatalf("An Error Occured %v", err)
+		 }
+		 defer resp.Body.Close()
+	
+		}
 }
 
 func AllClusterDetailByID(arr []string) []PendingDeliveryBulk{

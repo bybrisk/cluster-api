@@ -4,16 +4,14 @@ import (
 	"testing"
 	"fmt"
 	//"math/rand"
-	//"github.com/go-playground/validator/v10"
-//	"github.com/bybrisk/structs"
 	"github.com/bybrisk/cluster-api/data"
 )
 
 func TestCreateCluster(t *testing.T) {
 
 	payload:= &data.CreateClusterRequest {
-		BybID : "601a4c31565e622c7f6816f5",
-		NumberOfCluster : 25,
+		BybID : "60250f9d4063fe8843356b82",
+		NumberOfCluster : 3,
 	}
 
 	res:=data.CreateClusterByID(payload)
