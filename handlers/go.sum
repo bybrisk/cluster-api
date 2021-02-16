@@ -1,10 +1,10 @@
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/aws/aws-sdk-go v1.34.28/go.mod h1:H7NKnBqNVzoTJpGfLrQkkD+ytBA93eiDYi/+8rV9s48=
-github.com/bybrisk/cluster-api v0.0.0-20210206102930-499ab3158166 h1:5koQymIkMl/+PMYEdQZueSC6Mel0x4rPiCRKLsxGCdc=
-github.com/bybrisk/cluster-api/data v0.0.0-20210206102930-499ab3158166 h1:fehDwfvzFnJBm0Twh7I7nuGbHpAgJTvMCnKQHAlSQ7I=
-github.com/bybrisk/cluster-api/data v0.0.0-20210206102930-499ab3158166/go.mod h1:WH1TnPKSU0cT3kfc/QehAxPU3qZY+xqifvJtSCGW8/k=
-github.com/bybrisk/cluster-api/data v0.0.0-20210214215254-efe964ff4e61 h1:v4yuzAP1vv7rd+5NzQb1CSG6V1IRQDtFBTuTvVYx5rA=
-github.com/bybrisk/cluster-api/data v0.0.0-20210214215254-efe964ff4e61/go.mod h1:WH1TnPKSU0cT3kfc/QehAxPU3qZY+xqifvJtSCGW8/k=
+github.com/bybrisk/cluster-api v0.0.0-20210214215451-24b716fed6d1 h1:Vo4xPgtRFDlE6P75RFRBQ22wak9R8cdyrDikvPV71Os=
+github.com/bybrisk/cluster-api/data v0.0.0-20210214215451-24b716fed6d1 h1:yT6sRMy8yepbBPP0IqRqnKnq1I+7qo1uz9Rk335rOh0=
+github.com/bybrisk/cluster-api/data v0.0.0-20210214215451-24b716fed6d1/go.mod h1:WH1TnPKSU0cT3kfc/QehAxPU3qZY+xqifvJtSCGW8/k=
+github.com/bybrisk/cluster-api/data v0.0.0-20210216191844-1a5e37ce4f4f h1:ZbBooEh4hvTTVpmrkBmGCC5hhDinGWPPInPjlMvB1Ls=
+github.com/bybrisk/cluster-api/data v0.0.0-20210216191844-1a5e37ce4f4f/go.mod h1:CUuCoDCK7RyS4ar3zNkoBCx4ZbYh+BsDxF9v+NxfrIY=
 github.com/bybrisk/structs v0.0.0-20201109044720-899a1e012b8c/go.mod h1:+ozPcEcgRTvbDXzFyBlUTgv1G2niBpEsIzF5tySMIck=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
@@ -54,6 +54,7 @@ github.com/kr/pretty v0.1.0/go.mod h1:dAy3ld7l9f0ibDNOQOHHMYYIIbhfbHSm3C4ZsoJORN
 github.com/kr/pty v1.1.1/go.mod h1:pFQYn66WHrOpPYNljwOMqo10TkYh1fy3cYio2l3bCsQ=
 github.com/kr/text v0.1.0/go.mod h1:4Jbv+DJW3UT/LiOwJeYQe1efqtUx/iVham/4vfdArNI=
 github.com/leodido/go-urn v1.2.0/go.mod h1:+8+nEpDfqqsY+g338gtMEUOtuK+4dEMhiQEgxpxOKII=
+github.com/magefile/mage v1.10.0/go.mod h1:z5UZb/iS3GoOSn0JgWuiw7dxlurVYTu+/jHXqQg881A=
 github.com/markbates/oncer v0.0.0-20181203154359-bf2de49a0be2/go.mod h1:Ld9puTsIW75CHf65OeIOkyKbteujpZVXDpWK6YGZbxE=
 github.com/markbates/safe v1.0.1/go.mod h1:nAqgmRi7cY2nqMc92/bSEeQA+R4OheNU2T1kNSCBdG0=
 github.com/montanaflynn/stats v0.0.0-20171201202039-1bf9dbcd8cbe/go.mod h1:wL8QJuTMNUDYhXwkmfOly8iTdp5TEcJFWZD2D7SIkUc=
@@ -72,6 +73,8 @@ github.com/sirupsen/logrus v1.4.0/go.mod h1:LxeOpSwHxABJmUn/MG1IvRgCAasNZTLOkJPx
 github.com/sirupsen/logrus v1.4.1/go.mod h1:ni0Sbl8bgC9z8RoU9G6nDWqqs/fq4eDPysMBDgk/93Q=
 github.com/sirupsen/logrus v1.4.2/go.mod h1:tLMulIdttU9McNUspp0xgXVQah82FyeX6MwdIuYE2rE=
 github.com/sirupsen/logrus v1.7.0/go.mod h1:yWOB1SBYBC5VeMP7gHvWumXLIWorT60ONWic61uBYv0=
+github.com/sirupsen/logrus v1.7.1 h1:rsizeFmZP+GYwyb4V6t6qpG7ZNWzA2bvgW/yC2xHCcg=
+github.com/sirupsen/logrus v1.7.1/go.mod h1:4GuYW9TZmE769R5STWrRakJc4UqQ3+QQ95fyz7ENv1A=
 github.com/spf13/cobra v0.0.3/go.mod h1:1l0Ry5zgKvJasoi3XT1TypsSe7PqH0Sj9dhYf7v3XqQ=
 github.com/spf13/pflag v1.0.3/go.mod h1:DYY7MBk1bdzusC3SYhjObp+wFpr4gzcvqqNjLnInEg4=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
