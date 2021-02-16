@@ -21,6 +21,19 @@ var MKM_DataPoints []MKM_floatArr
 
 
 func ModifiedCluster (geoCodeArr []LatLongAndID,k int) ([]string, []string, []MKM_intArr, []MKM_floatArr ) {
+	//emptying the variables
+	MKM_C = nil
+	MKM_NAvg=0
+	MKM_Omega = nil
+	MKM_Index = nil
+	MKM_Index0 = nil
+	MKM_DeliveryID = nil
+	MKM_ClusterID = nil
+	MKM_Weights = nil
+	MKM_Weights_Sum = 0
+	MKM_LatLong = nil
+	MKM_DataPoints = nil
+
 	C1,I0,I,Navg := InitialiseFirstCluster(geoCodeArr,k)
 	MKM_Omega = append(MKM_Omega,C1)
 

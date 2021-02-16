@@ -10,7 +10,7 @@ import (
 func TestCreateCluster(t *testing.T) {
 
 	payload:= &data.CreateClusterRequest {
-		BybID : "60250f9d4063fe8843356b82",
+		BybID : "6015789575219a98b573e497",
 		NumberOfCluster : 3,
 	}
 
