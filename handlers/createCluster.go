@@ -32,8 +32,8 @@ func (p *Cluster) CreateCluster (w http.ResponseWriter, r *http.Request){
 		return
 	} 
 
-	//add delivery to elastic search
-	res := data.CreateClusterByID(cluster)
+	//add request to cluster queue
+	res := data.AddToClusterQueue(cluster)
 
 	//writing to the io.Writer
 	err = res.CreateClusterToJSON(w)

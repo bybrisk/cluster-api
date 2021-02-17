@@ -20,6 +20,10 @@ type CreateClusterRequest struct{
 	NumberOfCluster int64 `json: "numberOfCluster" validate:"required"`
 }
 
+type CreateClusterRequestArray struct {
+	RequestArray []CreateClusterRequest	`json: "RequestArray"`
+}
+
 //Response for creating clusters
 type CreateClusterResponse struct{
 

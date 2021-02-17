@@ -77,7 +77,7 @@ func GetDistanceFromBusiness(queueArr PendingDeliveryBulk ,geoCodes LatLongOfBus
 	return middleArrs
 }
 
-func GetAgentIDArray(k int64, docID string) ([]AgentIDArrayStruct, error){
+func GetAgentIDArray(k int64, docID string) ([]AgentIDArrayStruct){
 	var agentIDs []AgentIDArrayStruct
 
 	options := options.Find()
@@ -89,15 +89,15 @@ func GetAgentIDArray(k int64, docID string) ([]AgentIDArrayStruct, error){
 	if err != nil {
 		log.Error("AllAgentsByBusinessID Read ERROR : ")
 		log.Error(err)
-		return agentIDs,err
+		return agentIDs
 	}
 	if err = cursor.All(shashankMongo.CtxForDB, &agentIDs); err != nil {
 		log.Error("AllAgentsByBusinessID Write ERROR : ")
 		log.Error(err)
-		return agentIDs,err
+		return agentIDs
 	}
 
-	return agentIDs,nil
+	return agentIDs
 }
 
 func SaveClusterIDToMongo(clusterIDArr ClusterIDArray, docID string) int64 {
@@ -126,4 +126,42 @@ func AllClusterIDsByBusinessID(docID string) ClusterArrayObject{
 		log.Error(err)
 	}
 	return document
+}
+
+func SaveToClusterArray(d *CreateClusterRequest) int64 {
+	collectionName := shashankMongo.DatabaseName.Collection("clusterQ")
+	id, _ := primitive.ObjectIDFromHex("602cc9ef0a7d47656411f63a")
+	filter := bson.M{"_id": id}
+	updateResult, err := collectionName.UpdateOne(shashankMongo.CtxForDB, filter, bson.D{{Key: "$push", Value: bson.M{"RequestArray": d}}})
+	if err != nil {
+		log.Error("SaveToClusterArray ERROR:")
+		log.Error(err)
+	}
+	return updateResult.ModifiedCount
+}
+
+func GetClusteQArrayObj() CreateClusterRequestArray{
+	collectionName := shashankMongo.DatabaseName.Collection("clusterQ")
+	id, _ := primitive.ObjectIDFromHex("602cc9ef0a7d47656411f63a")
+	filter := bson.M{"_id": id}
+
+	var document CreateClusterRequestArray
+
+	err:= collectionName.FindOne(shashankMongo.CtxForDB, filter).Decode(&document)
+	if err != nil {
+		log.Error("GetClusteQArrayObj ERROR:")
+		log.Error(err)
+	}
+	return document
+}
+
+func ClearClusterQArray() {
+	collectionName := shashankMongo.DatabaseName.Collection("clusterQ")
+	id, _ := primitive.ObjectIDFromHex("602cc9ef0a7d47656411f63a")
+	filter := bson.M{"_id": id}
+	_, err := collectionName.UpdateOne(shashankMongo.CtxForDB, filter, bson.D{{Key: "$pull", Value: bson.M{"RequestArray": bson.M{}}}})
+	if err != nil {
+		log.Error("ClearClusterQArray ERROR:")
+		log.Error(err)
+	}
 }
