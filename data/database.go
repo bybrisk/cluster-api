@@ -137,6 +137,7 @@ func SaveToClusterArray(d *CreateClusterRequest) int64 {
 		log.Error("SaveToClusterArray ERROR:")
 		log.Error(err)
 	}
+	fmt.Println(updateResult.ModifiedCount)
 	return updateResult.ModifiedCount
 }
 
