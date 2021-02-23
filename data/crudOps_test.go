@@ -7,11 +7,11 @@ import (
 	"github.com/bybrisk/cluster-api/data"
 )
 
-/*func TestCreateCluster(t *testing.T) {
+func TestCreateCluster(t *testing.T) {
 
 	res:=data.CreateClusterByID()
 	fmt.Println(res)
-}*/
+}
 
 /*func TestGetPendingDeliveries(t *testing.T) {
 	res := data.GetPendingDeliveries("600d95c5d72ee5dd5896dd75")
@@ -58,14 +58,14 @@ import (
 	fmt.Println(res)
 }*/
 
-func TestAddToClusterQ (t *testing.T) {
+/*func TestAddToClusterQ (t *testing.T) {
 	payload:= &data.CreateClusterRequest {
-		BybID : "602fa2e249fe52839845cf5d",
+		BybID : "6034df15974c12b2ce1dc0ba",
 		NumberOfCluster : 2,
 	}
 	res:=data.AddToClusterQueue(payload)
 	fmt.Println(res)
-}
+}*/
 
 /*func TestGetClusterQ(t *testing.T) {
 	res:=data.GetClusteQArrayObj()

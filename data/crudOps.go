@@ -79,13 +79,15 @@ func CreateClusterByID () *[]CreateClusterResponse{
 		}
 
 		resArr = append(resArr,res)
+		//delete this element from array
+		ClearClusterQArray(CurrClusterObj.BybID)
 
 	}
 
 	//clear queue array from the clusterQ
-	if resArr!=nil {
+	/*if resArr!=nil {
 		ClearClusterQArray()
-	}
+	}*/
 
 
 	return &resArr

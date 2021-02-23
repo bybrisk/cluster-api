@@ -156,11 +156,11 @@ func GetClusteQArrayObj() CreateClusterRequestArray{
 	return document
 }
 
-func ClearClusterQArray() {
+func ClearClusterQArray(bybid string) {
 	collectionName := shashankMongo.DatabaseName.Collection("clusterQ")
 	id, _ := primitive.ObjectIDFromHex("602cc9ef0a7d47656411f63a")
 	filter := bson.M{"_id": id}
-	_, err := collectionName.UpdateOne(shashankMongo.CtxForDB, filter, bson.D{{Key: "$pull", Value: bson.M{"RequestArray": bson.M{}}}})
+	_, err := collectionName.UpdateOne(shashankMongo.CtxForDB, filter, bson.M{"$pull":bson.M{"RequestArray": bson.M{"bybid":bybid}}})
 	if err != nil {
 		log.Error("ClearClusterQArray ERROR:")
 		log.Error(err)
