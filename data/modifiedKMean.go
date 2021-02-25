@@ -354,21 +354,18 @@ func AdmissibleMoveImproved(oNew *[]MKM_intArr, k int,Navg int) *[]MKM_intArr {
 					//fmt.Printf("After Deleting ------------->%v\n",CrPi)
 					var CsPi []int64
 
-					//iterate through Cs
-					for m:=0;m<len((*oNew)[j]);m++{
-						CsPi=append((*oNew)[j],valShifted)	
-						//fmt.Printf("After Adding ------------->%v\n",CsPi)
+					CsPi=append((*oNew)[j],valShifted)	
+					//fmt.Printf("After Adding ------------->%v\n",CsPi)
 
-						//Balencing condition
-						if (balenceValue((*oNew)[i],(*oNew)[j], Navg) > 0 || (balenceValue((*oNew)[i],(*oNew)[j], Navg)>0 || balenceValue((*oNew)[i],(*oNew)[j], Navg)==0 && weightValue((*oNew)[i],(*oNew)[j],CrPi,CsPi,k)>0)) {
-							counter = counter+1
-							(*oNew)[i]=CrPi
-							(*oNew)[j]=CsPi
-							break
-						}
-						CsPi=nil
+					//Balencing condition
+					if (balenceValue((*oNew)[i],(*oNew)[j], Navg) > 0 || (balenceValue((*oNew)[i],(*oNew)[j], Navg)>0 || balenceValue((*oNew)[i],(*oNew)[j], Navg)==0 && weightValue((*oNew)[i],(*oNew)[j],CrPi,CsPi,k)>0)) {
+						counter = counter+1
+						(*oNew)[i]=CrPi
+						(*oNew)[j]=CsPi
+						l=l-1
 					}
-
+					CsPi=nil
+					CrPi=nil	
 				}
 			}
 		}
