@@ -15,10 +15,10 @@ import (
 	
 )
 
-var Elasticurl string = "https://4ec8711f7a6546eca307b323d7e7f724.ap-south-1.aws.elastic-cloud.com:9243"
+var Elasticurl string = "https://0e38a62eadcb475db131ebdf2152e96d.ap-south-1.aws.elastic-cloud.com:9243"
 var UsernameElastic string = "elastic"
-var Elasticpassword string = "deVk6bFsPjzPQH13ProbIhxW"
-var urlAuthenticate string = "https://elastic:deVk6bFsPjzPQH13ProbIhxW@4ec8711f7a6546eca307b323d7e7f724.ap-south-1.aws.elastic-cloud.com:9243"
+var Elasticpassword string = "K8txmFf6hwnGvaNs7HxNcg2w"
+var urlAuthenticate string = "https://elastic:K8txmFf6hwnGvaNs7HxNcg2w@0e38a62eadcb475db131ebdf2152e96d.ap-south-1.aws.elastic-cloud.com:9243"
 
 var (
 	clusterURLs = []string{Elasticurl}
