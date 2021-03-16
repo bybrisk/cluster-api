@@ -228,6 +228,11 @@ type GoogleDistanceMatrix struct {
 	Status string `json:"status"`
 }
 
+type PythonClusterAPIResponse struct {
+	ClusterIDArray []string `json:"clusterIDArray"`
+	Status         string   `json:"status"`
+}
+
 func (d *CreateClusterRequest) ValidateCreateClusters() error {
 	validate := validator.New()
 	return validate.Struct(d)

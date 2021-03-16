@@ -1,22 +1,23 @@
 package data
 
 import ( //"log"
-		"fmt"
+		//"fmt"
 		"sync"
-		//"io/ioutil"
-		//"net/http"
+		"io/ioutil"
+		log "github.com/sirupsen/logrus"
+		"net/http"
 		//"net/url"
-		//"encoding/json"
+		"encoding/json"
 		//"github.com/muesli/clusters"
 		//"github.com/muesli/kmeans"
 	)
 
 var wg sync.WaitGroup
 
-func CreateClusterByID () *[]CreateClusterResponse{
+/*func CreateClusterByID () *[]CreateClusterResponse{
 
 	var resArr []CreateClusterResponse
-	
+	respresp
 	//get array object from clusterQ
 	//loop over the array
 	clusterArrObj:=GetClusteQArrayObj()
@@ -29,9 +30,7 @@ func CreateClusterByID () *[]CreateClusterResponse{
 		//all the pending deliveries from es queue where cluster is null
 		queueArr := GetPendingDeliveries(CurrClusterObj.BybID)
 
-		var arr []LatLongAndID
-
-		//Get k agentIDs in an array else return error
+		var arr []LatLongArespn an array else return error
 		//agentIDArr := GetAgentIDArray(CurrClusterObj.NumberOfCluster,CurrClusterObj.BybID)
 
 		for _, hit := range queueArr.Hits.Hits {
@@ -84,10 +83,63 @@ func CreateClusterByID () *[]CreateClusterResponse{
 
 	}
 
-	//clear queue array from the clusterQ
-	/*if resArr!=nil {
-		ClearClusterQArray()
-	}*/
+
+	return &resArr
+}*/
+
+func CreateClusterByID () *[]CreateClusterResponse{
+
+	var resArr []CreateClusterResponse
+	
+	//get array object frorespm clusterQ
+	//loop over the array
+	clusterArrObj:=GetClusteQArrayObj()
+	for _,CurrClusterObj:=range clusterArrObj.RequestArray{
+	
+		//Clear all variables
+
+		var res CreateClusterResponse
+		
+		//fetch python API
+		pythonResponse, err := http.Get("http://ec2-18-218-54-244.us-east-2.compute.amazonaws.com/api/bybrisk/cluster/create?bybid="+CurrClusterObj.BybID)
+		if err != nil {
+			log.Error(err)
+		}
+		//We Read the response body on the line below.
+		body, err := ioutil.ReadAll(pythonResponse.Body)
+		if err != nil {
+			log.Error(err)
+		}
+
+		var betaResponseCrossOrigin PythonClusterAPIResponse
+		err = json.Unmarshal(body, &betaResponseCrossOrigin)
+		
+		var clusterIDArrObj ClusterIDArray
+		clusterIDArrObj.ClusterID = betaResponseCrossOrigin.ClusterIDArray //response.clusterArr attach
+		
+		res=CreateClusterResponse{
+			ClusterIDArray:clusterIDArrObj ,
+			Message: "Clusters Created",
+		}
+
+		/*if len(deliveryIdArr)==0{
+			clusterIDArrObj.ClusterID = nil
+			res=CreateClusterResponse{
+				ClusterIDArray:clusterIDArrObj ,
+				Message: "No Pending Deliveries",
+			}
+		} else{
+			res=CreateClusterResponse{
+				ClusterIDArray:clusterIDArrObj ,
+				Message: "Clusters Created",
+			}
+		}*/
+
+		resArr = append(resArr,res)
+		//delete this element from array
+		ClearClusterQArray(CurrClusterObj.BybID)
+
+	}
 
 
 	return &resArr
