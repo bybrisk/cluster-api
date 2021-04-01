@@ -200,3 +200,31 @@ func AddToClusterQueue(d *CreateClusterRequest) *CreateClusterResponse{
 	return &res
 }
 
+func SendRequestToPythonAPI(d *CreateClusterRequest) *CreateClusterResponse{
+
+	var res CreateClusterResponse
+		
+	//fetch python API
+	pythonResponse, err := http.Get("http://ec2-18-218-54-244.us-east-2.compute.amazonaws.com/api/bybrisk/cluster/create?bybid="+d.BybID)
+	if err != nil {
+		log.Error(err)
+	}
+	//We Read the response body on the line below.
+	body, err := ioutil.ReadAll(pythonResponse.Body)
+	if err != nil {
+		log.Error(err)
+	}
+
+	var betaResponseCrossOrigin PythonClusterAPIResponse
+	err = json.Unmarshal(body, &betaResponseCrossOrigin)
+		
+	var clusterIDArrObj ClusterIDArray
+	clusterIDArrObj.ClusterID = betaResponseCrossOrigin.ClusterIDArray //response.clusterArr attach
+		
+	res=CreateClusterResponse{
+		ClusterIDArray:clusterIDArrObj ,
+		Message: "Clusters Created",
+	}
+	
+	return &res
+}

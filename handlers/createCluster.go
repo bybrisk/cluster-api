@@ -33,7 +33,10 @@ func (p *Cluster) CreateCluster (w http.ResponseWriter, r *http.Request){
 	} 
 
 	//add request to cluster queue
-	res := data.AddToClusterQueue(cluster)
+	//res := data.AddToClusterQueue(cluster)
+
+	//send request to python API
+	res:=data.SendRequestToPythonAPI(cluster)
 
 	//writing to the io.Writer
 	err = res.CreateClusterToJSON(w)
