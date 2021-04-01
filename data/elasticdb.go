@@ -19,6 +19,7 @@ var Elasticurl string = "https://search-krayfin-ewgnw3zevhpuznh2kvo5hbbmtq.us-ea
 var UsernameElastic string = "elastic"
 var Elasticpassword string = "K8txmFf6hwnGvaNs7HxNcg2w$"
 var urlAuthenticate string = "https://elastic:K8txmFf6hwnGvaNs7HxNcg2w$@search-krayfin-ewgnw3zevhpuznh2kvo5hbbmtq.us-east-2.es.amazonaws.com"
+var awsYearIndex string = "/*2021"
 
 var (
 	clusterURLs = []string{Elasticurl}
@@ -83,7 +84,7 @@ func SaveTimeNDistanceES(arr []DeliveryHitsArr) {
 
 	 responseBody := bytes.NewBufferString(postBody)
   	//Leverage Go's HTTP Post function to make request
-	 resp, err := http.Post(urlAuthenticate+"/_all/_update_by_query?conflicts=proceed", "application/json", responseBody)
+	 resp, err := http.Post(urlAuthenticate+awsYearIndex+"/_update_by_query?conflicts=proceed", "application/json", responseBody)
   
 	 //Handle Error
 	 if err != nil {
@@ -113,7 +114,7 @@ func SaveClusterID(arr []LatLongAndID){
 	
 		 responseBody := bytes.NewBufferString(postBody)
 		  //Leverage Go's HTTP Post function to make request
-		 resp, err := http.Post(urlAuthenticate+"/_all/_update_by_query?conflicts=proceed", "application/json", responseBody)
+		 resp, err := http.Post(urlAuthenticate+awsYearIndex+"/_update_by_query?conflicts=proceed", "application/json", responseBody)
 	  
 		 //Handle Error
 		 if err != nil {
