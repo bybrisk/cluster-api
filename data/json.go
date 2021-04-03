@@ -23,3 +23,8 @@ func (d *SingleClusterResponseBulk) SingleClusterResponseToJSON (w io.Writer) er
 	e := json.NewEncoder(w)
 	return e.Encode(d)
 }
+
+func (d *ClusterTimeNDistanceResponse) ClusterTimeNDistanceResponseToJSON (w io.Writer) error {
+	e := json.NewEncoder(w)
+	return e.Encode(d)
+}

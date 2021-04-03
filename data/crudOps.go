@@ -1,7 +1,7 @@
 package data
 
 import ( //"log"
-		//"fmt"
+		"fmt"
 		"sync"
 		"io/ioutil"
 		log "github.com/sirupsen/logrus"
@@ -227,4 +227,147 @@ func SendRequestToPythonAPI(d *CreateClusterRequest) *CreateClusterResponse{
 	}
 	
 	return &res
+}
+
+func GetClusterTNDCRUDOPS(docID string) *ClusterTimeNDistanceResponse{
+	var res ClusterTimeNDistanceResponse
+	
+	//check if the distance and time in mongo against the cluster is not zero.
+	
+		//Get the sorted delivery from internal API
+		bybriskResponse, err := http.Get("https://developers.bybrisk.com/delivery/all/pending/"+docID)
+		if err != nil {
+				log.Error(err)
+			}
+		//We Read the response body on the line below.
+		body, err := ioutil.ReadAll(bybriskResponse.Body)
+		if err != nil {
+	    		log.Error(err)
+			}
+
+
+		totalTimeInSec:=0
+		totalDistanceInMeters:=0	
+
+		var allDeliveryArr DeliveryResponseBulk
+		var arrayOfDeliveryObj []DeliveryWithTimeAndDistance
+		err = json.Unmarshal(body, &allDeliveryArr)
+
+		//Check if the process has been cached
+		mongoDeliveryObj,err:=GetSavedPathAndDetailFromMongo(allDeliveryArr.Hits.Hits[0].Source.BybID,docID)
+		
+		if err!=nil{	
+		businessGeocodes := GetGeocodes(allDeliveryArr.Hits.Hits[0].Source.BybID)
+		originLat :=  fmt.Sprintf("%f", businessGeocodes.Latitude)
+		originLng := fmt.Sprintf("%f",businessGeocodes.Longitude)
+		FinalDestinationLat :=  originLat
+		FinalDestinationLng := originLng
+
+		for _,v:=range allDeliveryArr.SortedIdArray{
+			for index2,m:= range allDeliveryArr.Hits.Hits{
+				if v==m.ID {
+
+					//distance and time from depot to first delivery
+
+					destinationLat1 := fmt.Sprintf("%f",allDeliveryArr.Hits.Hits[index2].Source.Latitude)
+					destinationLng1 := fmt.Sprintf("%f",allDeliveryArr.Hits.Hits[index2].Source.Longitude)		
+					
+					googleResponse, err := http.Get("https://maps.googleapis.com/maps/api/directions/json?origin="+originLat+","+originLng+"&destination="+destinationLat1+","+destinationLng1+"&key=AIzaSyAZDoWPn-emuLvzohH3v-cS_En-u9NSA1A")
+					if err != nil {
+							log.Error(err)
+						}
+					//We Read the response body on the line below.
+					body, err := ioutil.ReadAll(googleResponse.Body)
+					if err != nil {
+							log.Error(err)
+						}
+
+					var googleResponseCrossOrigin GoogleDirectionAPIStruct
+					err = json.Unmarshal(body, &googleResponseCrossOrigin)
+		
+					totalTimeInSec = totalTimeInSec + googleResponseCrossOrigin.Routes[0].Legs[0].Duration.Value
+					totalDistanceInMeters = totalDistanceInMeters + googleResponseCrossOrigin.Routes[0].Legs[0].Distance.Value	
+					//fmt.Printf("origin: %s , %s ; Destination: %s , %s ; name: %s\n",originLat,originLng,destinationLat1,destinationLng1,allDeliveryArr.Hits.Hits[index2].Source.CustomerName)
+					
+					originLat =  destinationLat1
+					originLng = destinationLng1
+
+					var NewDeliveryObj DeliveryWithTimeAndDistance
+					NewDeliveryObj.DeliveryID = m.ID
+					NewDeliveryObj.Distance = int64(googleResponseCrossOrigin.Routes[0].Legs[0].Distance.Value)
+					NewDeliveryObj.Time = int64(googleResponseCrossOrigin.Routes[0].Legs[0].Duration.Value)
+					arrayOfDeliveryObj = append(arrayOfDeliveryObj,NewDeliveryObj)
+				}
+			} 
+		
+		}
+
+		//final leg calculation
+		googleResponse, err := http.Get("https://maps.googleapis.com/maps/api/directions/json?origin="+originLat+","+originLng+"&destination="+FinalDestinationLat+","+FinalDestinationLng+"&key=AIzaSyAZDoWPn-emuLvzohH3v-cS_En-u9NSA1A")
+		if err != nil {
+				log.Error(err)
+			}
+		//We Read the response body on the line below.
+		body, err = ioutil.ReadAll(googleResponse.Body)
+		if err != nil {
+				log.Error(err)
+			}
+
+		var googleResponseCrossOrigin GoogleDirectionAPIStruct
+		err = json.Unmarshal(body, &googleResponseCrossOrigin)
+		totalTimeInSec = totalTimeInSec + googleResponseCrossOrigin.Routes[0].Legs[0].Duration.Value
+		totalDistanceInMeters = totalDistanceInMeters + googleResponseCrossOrigin.Routes[0].Legs[0].Distance.Value	
+		//fmt.Printf("origin: %s , %s ; Destination: %s , %s ; name: Depot\n",originLat,originLng,FinalDestinationLat,FinalDestinationLng)	
+		
+		var NewDeliveryObjOuter DeliveryWithTimeAndDistance
+		NewDeliveryObjOuter.DeliveryID = "Depot"
+		NewDeliveryObjOuter.Distance = int64(googleResponseCrossOrigin.Routes[0].Legs[0].Distance.Value)
+		NewDeliveryObjOuter.Time = int64(googleResponseCrossOrigin.Routes[0].Legs[0].Duration.Value)
+		arrayOfDeliveryObj = append(arrayOfDeliveryObj,NewDeliveryObjOuter)
+
+		document := MongoStructForTimeAndDistance{
+			ArrayOfDeliveryDetail:arrayOfDeliveryObj,
+			AgentID:docID,
+		}
+
+		//fmt.Println(arrayOfDeliveryObj)
+		//fmt.Println(totalTimeInSec)
+		//fmt.Println(totalDistanceInMeters)
+	
+		//save data to mongo against this agentID
+		SavePathAndDetailToMongo(allDeliveryArr.Hits.Hits[0].Source.BybID,docID,document)
+
+		res=ClusterTimeNDistanceResponse{
+			AgentID:allDeliveryArr.Hits.Hits[0].Source.DeliveryAgentID ,
+			ClusterTime: int64(totalTimeInSec),
+			ClusterDistance:int64(totalDistanceInMeters),
+			Message:"Calculated Time and Distance",
+
+		}
+	} else {
+		time,distance := getTimeAndDistanceFromCachedData(mongoDeliveryObj,allDeliveryArr.Hits.Hits[0].Source.DeliveryAgentID)
+		res=ClusterTimeNDistanceResponse{
+			AgentID:allDeliveryArr.Hits.Hits[0].Source.DeliveryAgentID ,
+			ClusterTime: time,
+			ClusterDistance:distance,
+			Message:"Cached Time and Distance",
+
+		}
+	}
+		
+	return &res
+}
+
+func getTimeAndDistanceFromCachedData(mongoDeliveryObj ExtractTimeAndDistanceFromMongo,agentID string) (int64,int64){
+	var time int64 = 0
+	var distance int64 = 0
+	for _,v:= range mongoDeliveryObj.DeliveryDetailObj{
+		if (v.AgentID==agentID){
+			for _,val:= range v.ArrayOfDeliveryDetail{
+				distance = distance + val.Distance
+				time = time + val.Time
+			} 
+		}
+	}
+	return time,distance
 }

@@ -58,14 +58,14 @@ import (
 	fmt.Println(res)
 }*/
 
-func TestAddToClusterQ (t *testing.T) {
+/*func TestAddToClusterQ (t *testing.T) {
 	payload:= &data.CreateClusterRequest {
 		BybID : "6038bd0fc35e3b8e8bd9f81a",
 		NumberOfCluster : 2,
 	}
 	res:=data.SendRequestToPythonAPI(payload)
 	fmt.Println(res)
-}
+}*/
 
 /*func TestGetClusterQ(t *testing.T) {
 	res:=data.GetClusteQArrayObj()
@@ -75,3 +75,13 @@ func TestAddToClusterQ (t *testing.T) {
 /*func TestClearArr(t *testing.T) {
 	data.ClearClusterQArray()
 }*/
+
+/*func TestClusterDetailByID(t *testing.T){
+	res:=data.FetchDeliveryByClusterID("bcdd0fc3-7e2a-4158-bcd4-c65bffc6b53f")
+	fmt.Println(res)
+}*/
+
+func TestGetClusterTNDCRUDOPS(t *testing.T){
+	res:= data.GetClusterTNDCRUDOPS("603b496dc35e3b8e8bd9f83a")
+	fmt.Println(res)
+}

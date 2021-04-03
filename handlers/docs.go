@@ -50,6 +50,14 @@ type clusterCreateResponseWrapper struct {
 	Body data.CreateClusterResponse
 }
 
+// Response structure for cluster time and distance
+// swagger:response getClusterTimeNDistanceResp
+type clusterTimeNDistanceResponseWrapper struct {
+	// Response structre for cluster time and distance
+	// in: body
+	Body data.ClusterTimeNDistanceResponse
+}
+
 // swagger:parameters createCluster
 type createClusterParamsWrapper struct {
 	// Cluster data structure to create cluster with BybID.

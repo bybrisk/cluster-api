@@ -166,3 +166,38 @@ func ClearClusterQArray(bybid string) {
 		log.Error(err)
 	}
 }
+
+func SavePathAndDetailToMongo(BybID string,docID string,mongoObj MongoStructForTimeAndDistance) int64{
+	collectionName := shashankMongo.DatabaseName.Collection("cluster")
+	//id, _ := primitive.ObjectIDFromHex("602cc9ef0a7d47656411f63a")
+	filter := bson.M{"bybid": BybID}
+	docIDPresent := docID+"Present"
+	updateResult, err := collectionName.UpdateOne(shashankMongo.CtxForDB, filter, bson.D{{Key: "$push", Value: bson.M{"DeliveryDetailObj": mongoObj}}})
+	if err != nil {
+		log.Error("SavePathAndDetailToMongo1 ERROR:")
+		log.Error(err)
+	}
+
+	_, err = collectionName.UpdateOne(shashankMongo.CtxForDB, filter, bson.D{{Key: "$set", Value: bson.M{docIDPresent:"True"}}})
+	if err != nil {
+		log.Error("SavePathAndDetailToMongo2 ERROR:")
+		log.Error(err)
+	}
+	fmt.Println(updateResult.ModifiedCount)
+	return updateResult.ModifiedCount
+}
+
+func GetSavedPathAndDetailFromMongo(BybID string,docID string) (ExtractTimeAndDistanceFromMongo,error){
+	collectionName := shashankMongo.DatabaseName.Collection("cluster")
+	docIDPresent := docID+"Present"
+	filter := bson.M{docIDPresent: "True"}
+
+	var document ExtractTimeAndDistanceFromMongo
+
+	err:= collectionName.FindOne(shashankMongo.CtxForDB, filter).Decode(&document)
+	if err != nil {
+		log.Error("GetGeocodes ERROR:")
+		log.Error(err)
+	}
+	return document,err
+}
