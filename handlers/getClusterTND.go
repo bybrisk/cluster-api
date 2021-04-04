@@ -8,7 +8,7 @@ import (
 )
 
 // swagger:route GET /cluster/timeNdistance/{id} cluster getClusterTimeNDistance
-// Get cluster calculated time and distance to complete a cluster using clusterID.
+// Get cluster calculated time and distance to complete a cluster using agentID.
 //
 // responses:
 //	200: getClusterTimeNDistanceResp
