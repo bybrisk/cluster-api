@@ -254,10 +254,12 @@ func GetClusterTNDCRUDOPS(docID string) *ClusterTimeNDistanceResponse{
 		err = json.Unmarshal(body, &allDeliveryArr)
 
 		//Check if the process has been cached
-		mongoDeliveryObj,err:=GetSavedPathAndDetailFromMongo(allDeliveryArr.Hits.Hits[0].Source.BybID,docID)
-		
-		if err!=nil{	
+		mongoDeliveryObj,err:=GetSavedPathAndDetailFromMongo(allDeliveryArr.Hits.Hits[0].Source.BybID,allDeliveryArr.Hits.Hits[0].Source.ClusterID)
 		businessGeocodes := GetGeocodes(allDeliveryArr.Hits.Hits[0].Source.BybID)
+		totalStandByDuration := businessGeocodes.Standbyduration*int64(len(allDeliveryArr.Hits.Hits))
+
+		if err!=nil{	
+
 		originLat :=  fmt.Sprintf("%f", businessGeocodes.Latitude)
 		originLng := fmt.Sprintf("%f",businessGeocodes.Longitude)
 		FinalDestinationLat :=  originLat
@@ -327,7 +329,7 @@ func GetClusterTNDCRUDOPS(docID string) *ClusterTimeNDistanceResponse{
 
 		document := MongoStructForTimeAndDistance{
 			ArrayOfDeliveryDetail:arrayOfDeliveryObj,
-			AgentID:docID,
+			AgentID:allDeliveryArr.Hits.Hits[0].Source.ClusterID,
 		}
 
 		//fmt.Println(arrayOfDeliveryObj)
@@ -335,20 +337,20 @@ func GetClusterTNDCRUDOPS(docID string) *ClusterTimeNDistanceResponse{
 		//fmt.Println(totalDistanceInMeters)
 	
 		//save data to mongo against this agentID
-		SavePathAndDetailToMongo(allDeliveryArr.Hits.Hits[0].Source.BybID,docID,document)
+		SavePathAndDetailToMongo(allDeliveryArr.Hits.Hits[0].Source.BybID,allDeliveryArr.Hits.Hits[0].Source.ClusterID,document)
 
 		res=ClusterTimeNDistanceResponse{
 			AgentID:allDeliveryArr.Hits.Hits[0].Source.DeliveryAgentID ,
-			ClusterTime: int64(totalTimeInSec),
+			ClusterTime: int64(totalTimeInSec)+totalStandByDuration,
 			ClusterDistance:int64(totalDistanceInMeters),
 			Message:"Calculated Time and Distance",
 
 		}
 	} else {
-		time,distance := getTimeAndDistanceFromCachedData(mongoDeliveryObj,allDeliveryArr.Hits.Hits[0].Source.DeliveryAgentID)
+		time,distance := getTimeAndDistanceFromCachedData(mongoDeliveryObj,allDeliveryArr.Hits.Hits[0].Source.ClusterID)
 		res=ClusterTimeNDistanceResponse{
 			AgentID:allDeliveryArr.Hits.Hits[0].Source.DeliveryAgentID ,
-			ClusterTime: time,
+			ClusterTime: time+totalStandByDuration,
 			ClusterDistance:distance,
 			Message:"Cached Time and Distance",
 
