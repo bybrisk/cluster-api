@@ -257,6 +257,7 @@ func GetClusterTNDCRUDOPS(docID string) *ClusterTimeNDistanceResponse{
 		mongoDeliveryObj,err:=GetSavedPathAndDetailFromMongo(allDeliveryArr.Hits.Hits[0].Source.BybID,allDeliveryArr.Hits.Hits[0].Source.ClusterID)
 		businessGeocodes := GetGeocodes(allDeliveryArr.Hits.Hits[0].Source.BybID)
 		totalStandByDuration := businessGeocodes.Standbyduration*int64(len(allDeliveryArr.Hits.Hits))
+		//fmt.Println(allDeliveryArr)
 
 		if err!=nil{	
 
@@ -265,7 +266,7 @@ func GetClusterTNDCRUDOPS(docID string) *ClusterTimeNDistanceResponse{
 		FinalDestinationLat :=  originLat
 		FinalDestinationLng := originLng
 
-		for _,v:=range allDeliveryArr.SortedIdArray{
+		for _,v:=range allDeliveryArr.SortedIdString{
 			for index2,m:= range allDeliveryArr.Hits.Hits{
 				if v==m.ID {
 

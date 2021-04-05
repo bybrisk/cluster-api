@@ -82,6 +82,6 @@ import (
 }*/
 
 func TestGetClusterTNDCRUDOPS(t *testing.T){
-	res:= data.GetClusterTNDCRUDOPS("603b496dc35e3b8e8bd9f83a")
+	res:= data.GetClusterTNDCRUDOPS("6038bd71c35e3b8e8bd9f81c")
 	fmt.Println(res)
 }

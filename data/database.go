@@ -196,7 +196,7 @@ func GetSavedPathAndDetailFromMongo(BybID string,docID string) (ExtractTimeAndDi
 
 	err:= collectionName.FindOne(shashankMongo.CtxForDB, filter).Decode(&document)
 	if err != nil {
-		log.Error("GetGeocodes ERROR:")
+		log.Error("GetSavedPathAndDetailFromMongo ERROR:")
 		log.Error(err)
 	}
 	return document,err

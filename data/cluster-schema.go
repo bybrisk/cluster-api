@@ -94,6 +94,9 @@ type PendingDeliveryBulk struct {
 				//
 				ClusterID       string  `json:"clusterID"`
 
+				//Name of the agent assigned
+				DeliveryAgentName string `json:"deliveryAgentName"`
+
 				//Delivery Observed Distance (in meters)
 				//
 				DistanceObserved  float64  `json:"distanceObserved"`
@@ -264,7 +267,7 @@ type DeliveryResponseBulk struct {
 	} `json:"hits"`
 
 	//Sorted Array of Delivery IDs
-	SortedIdArray []string `json:"sortedIdArray"`
+	SortedIdString []string `json:"SortedIdString"`
 
 }
 
