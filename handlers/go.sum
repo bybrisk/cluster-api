@@ -1,10 +1,10 @@
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/aws/aws-sdk-go v1.34.28/go.mod h1:H7NKnBqNVzoTJpGfLrQkkD+ytBA93eiDYi/+8rV9s48=
-github.com/bybrisk/cluster-api v0.0.0-20210404155845-af9795309533 h1:gF27CsB+MwKCGQxNh7vkwMHIqaCxYWr+chthc/FaSHg=
-github.com/bybrisk/cluster-api/data v0.0.0-20210404155655-4c1c6bf4923a h1:eROS8kKoXh3flbuloQcHoNAg+uuz0eQDWooR9jPek+I=
-github.com/bybrisk/cluster-api/data v0.0.0-20210404155655-4c1c6bf4923a/go.mod h1:39fEqLKOlx0cPlGb9DWkke60gw/3Gpz8b2+ukw5WqT4=
-github.com/bybrisk/cluster-api/data v0.0.0-20210404155845-af9795309533 h1:ImPbuRQ4/ozhbhAsuesnWEU0gsmzYQIN9OhI1XR6pME=
-github.com/bybrisk/cluster-api/data v0.0.0-20210404155845-af9795309533/go.mod h1:39fEqLKOlx0cPlGb9DWkke60gw/3Gpz8b2+ukw5WqT4=
+github.com/bybrisk/cluster-api v0.0.0-20210404162645-4e8d514a6de8 h1:jz1oJlQSvSi47p0pJZHFCHoL/sOFqdk0w7P8xhxOq90=
+github.com/bybrisk/cluster-api/data v0.0.0-20210404162645-4e8d514a6de8 h1:YnYO64VQzWrlKjHg6lDLx+PnAQM7ANiMk7kKOBKCYnU=
+github.com/bybrisk/cluster-api/data v0.0.0-20210404162645-4e8d514a6de8/go.mod h1:39fEqLKOlx0cPlGb9DWkke60gw/3Gpz8b2+ukw5WqT4=
+github.com/bybrisk/cluster-api/data v0.0.0-20210405094827-ff57158ff08d h1:vk/ir4TEGPgsN4IV7PFfR8Vxo7Q38lK//bbs59QDSjE=
+github.com/bybrisk/cluster-api/data v0.0.0-20210405094827-ff57158ff08d/go.mod h1:39fEqLKOlx0cPlGb9DWkke60gw/3Gpz8b2+ukw5WqT4=
 github.com/bybrisk/structs v0.0.0-20201109044720-899a1e012b8c/go.mod h1:+ozPcEcgRTvbDXzFyBlUTgv1G2niBpEsIzF5tySMIck=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
