@@ -1,10 +1,8 @@
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/aws/aws-sdk-go v1.34.28/go.mod h1:H7NKnBqNVzoTJpGfLrQkkD+ytBA93eiDYi/+8rV9s48=
-github.com/bybrisk/cluster-api v0.0.0-20210404162645-4e8d514a6de8 h1:jz1oJlQSvSi47p0pJZHFCHoL/sOFqdk0w7P8xhxOq90=
-github.com/bybrisk/cluster-api/data v0.0.0-20210404162645-4e8d514a6de8 h1:YnYO64VQzWrlKjHg6lDLx+PnAQM7ANiMk7kKOBKCYnU=
-github.com/bybrisk/cluster-api/data v0.0.0-20210404162645-4e8d514a6de8/go.mod h1:39fEqLKOlx0cPlGb9DWkke60gw/3Gpz8b2+ukw5WqT4=
-github.com/bybrisk/cluster-api/data v0.0.0-20210405094827-ff57158ff08d h1:vk/ir4TEGPgsN4IV7PFfR8Vxo7Q38lK//bbs59QDSjE=
-github.com/bybrisk/cluster-api/data v0.0.0-20210405094827-ff57158ff08d/go.mod h1:39fEqLKOlx0cPlGb9DWkke60gw/3Gpz8b2+ukw5WqT4=
+github.com/bybrisk/cluster-api v0.0.0-20210415105614-b58d044b06a5 h1:0SDlrB0eF15iQ4Am2KKUt5+n20hcmPcfkC4vDaqHtB8=
+github.com/bybrisk/cluster-api/data v0.0.0-20210415105614-b58d044b06a5 h1:eF/dwpdAlGllmR30joMCfgpuVi4g/SDi888Rwa5DWqI=
+github.com/bybrisk/cluster-api/data v0.0.0-20210415105614-b58d044b06a5/go.mod h1:zXFXBeWiMN4rnP2rb2mAvEIJvacqFiaNZp+o3IPPmfc=
 github.com/bybrisk/structs v0.0.0-20201109044720-899a1e012b8c/go.mod h1:+ozPcEcgRTvbDXzFyBlUTgv1G2niBpEsIzF5tySMIck=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
@@ -12,6 +10,8 @@ github.com/go-playground/assert/v2 v2.0.1/go.mod h1:VDjEfimB/XKnb+ZQfWdccd7VUvSc
 github.com/go-playground/locales v0.13.0/go.mod h1:taPMhCMXrRLJO55olJkUXHZBHCxTMfnGwq/HNwmWNS8=
 github.com/go-playground/universal-translator v0.17.0/go.mod h1:UkSxE5sNxxRwHyU+Scu5vgOQjsIJAF8j9muTVoKLVtA=
 github.com/go-playground/validator/v10 v10.4.1/go.mod h1:nlOn6nFhuKACm19sB/8EGNn9GlaMV7XkbRSipzJ0Ii4=
+github.com/go-playground/validator/v10 v10.5.0 h1:X9rflw/KmpACwT8zdrm1upefpvdy6ur8d1kWyq6sg3E=
+github.com/go-playground/validator/v10 v10.5.0/go.mod h1:xm76BBt941f7yWdGnI2DVPFFg1UK3YY04qifoXU3lOk=
 github.com/go-sql-driver/mysql v1.5.0/go.mod h1:DCzpHaOWr8IXmIStZouvnhqoel9Qv2LBy8hT2VhHyBg=
 github.com/go-stack/stack v1.8.0/go.mod h1:v0f6uXyyMGvRgIKkXu+yp6POWl0qKG85gN/melR3HDY=
 github.com/gobuffalo/attrs v0.0.0-20190224210810-a9411de4debd/go.mod h1:4duuawTqi2wkkpB4ePgWMaai6/Kc6WEz83bhFwpHzj0=
