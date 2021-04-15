@@ -287,11 +287,14 @@ func GetClusterTNDCRUDOPS(docID string) *ClusterTimeNDistanceResponse{
 
 					var googleResponseCrossOrigin GoogleDirectionAPIStruct
 					err = json.Unmarshal(body, &googleResponseCrossOrigin)
-		
+					//fmt.Println(googleResponseCrossOrigin)
+					if (googleResponseCrossOrigin.Status != "OK") {
+						//fmt.Println("Couldn't Fetch this ")
+						continue
+					}	
 					totalTimeInSec = totalTimeInSec + googleResponseCrossOrigin.Routes[0].Legs[0].Duration.Value
 					totalDistanceInMeters = totalDistanceInMeters + googleResponseCrossOrigin.Routes[0].Legs[0].Distance.Value	
 					//fmt.Printf("origin: %s , %s ; Destination: %s , %s ; name: %s\n",originLat,originLng,destinationLat1,destinationLng1,allDeliveryArr.Hits.Hits[index2].Source.CustomerName)
-					
 					originLat =  destinationLat1
 					originLng = destinationLng1
 
